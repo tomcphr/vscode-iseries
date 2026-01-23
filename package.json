@@ -1,0 +1,123 @@
+{
+  "type": "module",
+  "name": "sublime-packages-port",
+  "displayName": "Sublime Packages Port",
+  "description": "Port of Sublime Text packages (coding-standards, iseries-rulers, iseries-syntax, iseries-upload, php-help, php-imports, trim-whitespace, preferences) to VS Code extension",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.108.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.mjs",
+  "contributes": {
+    "commands": [
+      {
+        "command": "sublime-packages-port.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "rpgle.upload",
+        "title": "Upload RPGLE Source"
+      }
+    ],
+    "configurationDefaults": {
+      "[rpgle]": {
+        "editor.rulers": [
+          8,
+          80,
+          100
+        ]
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "title": "RPGLE Upload Settings",
+      "properties": {
+        "rpgleUpload.server": {
+          "type": "string",
+          "description": "The IBM i server address for upload.",
+          "default": ""
+        },
+        "rpgleUpload.library": {
+          "type": "string",
+          "description": "The target library for upload.",
+          "default": ""
+        },
+        "rpgleUpload.timeout": {
+          "type": "number",
+          "description": "Upload timeout in seconds.",
+          "default": 30
+        },
+        "rpgleUpload.severity": {
+          "type": "number",
+          "description": "Severity level for compile errors.",
+          "default": 10
+        },
+        "rpgleUpload.session": {
+          "type": "string",
+          "description": "6-digit session ID to avoid clashing sessions.",
+          "default": ""
+        },
+        "rpgleUpload.compile": {
+          "type": "boolean",
+          "description": "Automatically compile the source after upload.",
+          "default": false
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "rpgle",
+        "aliases": [
+          "RPGLE",
+          "rpgle"
+        ],
+        "extensions": [
+          ".rpgle"
+        ],
+        "configuration": "./syntaxes/rpgle.tmLanguage.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rpgle",
+        "scopeName": "source.rpgle",
+        "path": "./syntaxes/rpgle.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/base-64": "^1.0.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^25.0.10",
+    "@types/vscode": "^1.108.1",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.27.2",
+    "eslint": "^9.39.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.52.0"
+  },
+  "dependencies": {
+    "base-64": "^1.0.0",
+    "node-fetch": "^3.3.2"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "rpgle",
+  "scopeName": "source.rpgle",
+  "fileTypes": ["rpgle"],
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#keywords" },
+    { "include": "#numbers" },
+    { "include": "#strings" }
+  ],
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.line.asterisk.rpgle",
+          "match": "^\s*\*.*$"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.rpgle",
+          "match": "\b(IF|DO|ENDDO|SELECT|WHEN|OTHER|END|FOR|DOW|IFEND|ELSE|ENDIF|CALLP|RETURN|LEAVE|ITER|EXSR|BEGSR|ENDSR)\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.rpgle",
+          "match": "\b\d+(\.\d+)?\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.rpgle",
+          "begin": '"',
+          "end": '"',
+          "patterns": [
+            {
+              "name": "constant.character.escape.rpgle",
+              "match": "\\."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
