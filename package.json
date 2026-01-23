@@ -15,12 +15,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "sublime-packages-port.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "rpgle.upload",
-        "title": "Upload RPGLE Source"
+        "command": "iseries.upload",
+        "title": "Upload Iseries Source"
       }
     ],
     "configurationDefaults": {
@@ -34,37 +30,66 @@
     },
     "configuration": {
       "type": "object",
-      "title": "RPGLE Upload Settings",
+      "title": "Iseries Upload Settings",
       "properties": {
-        "rpgleUpload.server": {
+        "iseriesUpload.openUploadedCode": {
+          "type": "boolean",
+          "description": "Open a new editor tab with the processed code that's uploaded to the IBM i.",
+          "default": false,
+          "order": 0
+        },
+        "iseriesUpload.uploadOnSave": {
+          "type": "boolean",
+          "description": "Automatically upload source to IBM i on save.",
+          "default": false,
+          "order": 1
+        },
+        "iseriesUpload.compile": {
+          "type": "boolean",
+          "description": "Automatically compile source after upload.",
+          "default": false,
+          "order": 2
+        },
+        "iseriesUpload.errors.outputType": {
+          "type": "string",
+          "description": "The output type for compile errors (spoolfile, list, or none).",
+          "default": "spoolfile",
+          "enum": [
+            "spoolfile",
+            "list",
+            "none"
+          ],
+          "order": 3
+        },
+        "iseriesUpload.server": {
           "type": "string",
           "description": "The IBM i server address for upload.",
-          "default": ""
+          "default": "",
+          "order": 4
         },
-        "rpgleUpload.library": {
+        "iseriesUpload.library": {
           "type": "string",
           "description": "The target library for upload.",
-          "default": ""
+          "default": "",
+          "order": 5
         },
-        "rpgleUpload.timeout": {
+        "iseriesUpload.timeout": {
           "type": "number",
           "description": "Upload timeout in seconds.",
-          "default": 30
+          "default": 30,
+          "order": 6
         },
-        "rpgleUpload.severity": {
+        "iseriesUpload.severity": {
           "type": "number",
           "description": "Severity level for compile errors.",
-          "default": 10
+          "default": 10,
+          "order": 7
         },
-        "rpgleUpload.session": {
+        "iseriesUpload.session": {
           "type": "string",
           "description": "6-digit session ID to avoid clashing sessions.",
-          "default": ""
-        },
-        "rpgleUpload.compile": {
-          "type": "boolean",
-          "description": "Automatically compile the source after upload.",
-          "default": false
+          "default": "",
+          "order": 8
         }
       }
     },
@@ -90,15 +115,15 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
-    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run check-types && pnpm run lint && node esbuild.cjs",
     "watch": "npm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
+    "watch:esbuild": "node esbuild.cjs --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "package": "pnpm run check-types && pnpm run lint && node esbuild.cjs --production",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test"
