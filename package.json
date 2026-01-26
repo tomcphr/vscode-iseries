@@ -2,6 +2,8 @@
   "type": "module",
   "name": "iseries-vscode-extension",
   "displayName": "iSeries Visual Studio Code Extension",
+  "description": "Support for iSeries source code and utilities to make development easier.",
+  "publisher": "tomcphr",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.108.1"
@@ -91,9 +93,36 @@
           "rpgle"
         ],
         "extensions": [
-          ".rpgle"
+          ".rpgle",
+          ".sqlrpgle",
+          ".rpg"
         ],
         "configuration": "./syntaxes/rpgle.tmLanguage.json"
+      },
+      {
+        "id": "clle",
+        "aliases": [
+          "CLLE",
+          "CLP",
+          "clle",
+          "clp"
+        ],
+        "extensions": [
+          ".clle",
+          ".clp"
+        ]
+      },
+      {
+        "id": "dds",
+        "aliases": [
+          "DDS",
+          "dds"
+        ],
+        "extensions": [
+          ".pf",
+          ".lf",
+          ".dspf"
+        ]
       }
     ],
     "grammars": [
@@ -101,6 +130,16 @@
         "language": "rpgle",
         "scopeName": "source.rpgle",
         "path": "./syntaxes/rpgle.tmLanguage.json"
+      },
+      {
+        "language": "clle",
+        "scopeName": "source.clle",
+        "path": "./syntaxes/clle.tmLanguage.json"
+      },
+      {
+        "language": "dds",
+        "scopeName": "source.dds",
+        "path": "./syntaxes/dds.tmLanguage.json"
       }
     ]
   },

@@ -1,50 +1,540 @@
 {
-  "name": "rpgle",
+  "name": "RPGLE",
   "scopeName": "source.rpgle",
-  "fileTypes": ["rpgle"],
+  "fileTypes": ["rpgle", "sqlrpgle", "rpg"],
   "patterns": [
-    { "include": "#comment" },
-    { "include": "#keywords" },
-    { "include": "#numbers" },
-    { "include": "#strings" }
+    { "include": "#member-title" },
+    { "include": "#subroutines-column" },
+    { "include": "#subroutines-free" },
+    { "include": "#c-specs" },
+    { "include": "#d-specs" },
+    { "include": "#f-specs" },
+    { "include": "#h-specs" },
+    { "include": "#i-specs" },
+    { "include": "#procedure-definitions-column" },
+    { "include": "#procedure-definitions-free" },
+    { "include": "#prototype-definitions-free" },
+    { "include": "#procedure-interface-definitions-free" },
+    { "include": "#prototype-parameters-free" },
+    { "include": "#standalone-variables-free" },
+    { "include": "#constant-definitions-free" },
+    { "include": "#datastructure-definitions-free" },
+    { "include": "#table-definitions-free" },
+    { "include": "#control-statements-free" },
+    { "include": "#end-free-definitions" },
+    { "include": "#comments" },
+    { "include": "#free-format-comments" },
+    { "include": "#embedded-sql" },
+    { "include": "#compiler-directives" },
+    { "include": "#control-statements" },
+    { "include": "#built-in-functions" },
+    { "include": "#opcodes" },
+    { "include": "#constants" },
+    { "include": "#strings" },
+    { "include": "#variable-types" },
+    { "include": "#statement-terminator" }
   ],
   "repository": {
-    "comment": {
+    "member-title": {
+      "patterns": [
+        {
+          "name": "comment.line.hash.rpgle",
+          "match": "^#.*$"
+        }
+      ]
+    },
+    "subroutines-column": {
+      "patterns": [
+        {
+          "name": "meta.subroutine.column.rpgle",
+          "match": "(?i)^\\s*(C)\\s+([A-Z0-9_]+)\\s+(BEGSR)\\s",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "entity.name.function.rpgle" },
+            "3": { "name": "keyword.control.rpgle" }
+          }
+        }
+      ]
+    },
+    "subroutines-free": {
+      "patterns": [
+        {
+          "name": "meta.subroutine.free.rpgle",
+          "match": "(?i)^\\s*(begsr)\\s+([a-z0-9_]+)(;)$",
+          "captures": {
+            "1": { "name": "keyword.control.rpgle" },
+            "2": { "name": "entity.name.function.rpgle" },
+            "3": { "name": "punctuation.terminator.expression.rpgle" }
+          }
+        }
+      ]
+    },
+    "c-specs": {
+      "patterns": [
+        {
+          "name": "meta.c-spec.rpgle",
+          "match": "(?i)^(C)     (.{14})([^\\s]{1,10})",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "3": { "name": "keyword.control.rpgle" }
+          }
+        }
+      ]
+    },
+    "d-specs": {
+      "patterns": [
+        {
+          "name": "meta.d-spec.rpgle",
+          "match": "(?i)^(D)([^\\.]{17})(S |DS|C |P[IR])",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "variable.other.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" }
+          }
+        },
+        {
+          "name": "meta.d-spec.continued.rpgle",
+          "match": "(?i)^(D) .*[^;]$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        }
+      ]
+    },
+    "f-specs": {
+      "patterns": [
+        {
+          "name": "meta.f-spec.rpgle",
+          "match": "(?i)^(F)(.{10})(.F|O.|I[PS])( . .)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" },
+            "4": { "name": "storage.modifier.rpgle" }
+          }
+        },
+        {
+          "name": "meta.f-spec.keywords.rpgle",
+          "match": "(?i)^(F)(\\s{30})(.*)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        }
+      ]
+    },
+    "h-specs": {
+      "patterns": [
+        {
+          "name": "meta.h-spec.rpgle",
+          "match": "(?i)^(H) (.*)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        }
+      ]
+    },
+    "i-specs": {
+      "patterns": [
+        {
+          "name": "meta.i-spec.rpgle",
+          "match": "(?i)^(I)([^\\s]*)$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        },
+        {
+          "name": "meta.i-spec.continued.rpgle",
+          "match": "(?i)^(I)\\s(.*)[^;]$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        }
+      ]
+    },
+    "procedure-definitions-column": {
+      "patterns": [
+        {
+          "name": "meta.procedure.column.rpgle",
+          "match": "(?i)^(P)\\s([^\\.\\s]+)?[\\.\\s]+(.*)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "entity.name.function.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" }
+          }
+        }
+      ]
+    },
+    "procedure-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.procedure.free.rpgle",
+          "match": "^\\s*(dcl-proc) ([a-zA-Z0-9]+)( export)?(;)$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "entity.name.function.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" },
+            "4": { "name": "punctuation.terminator.expression.rpgle" }
+          }
+        }
+      ]
+    },
+    "prototype-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.prototype.rpgle",
+          "begin": "^\\s*(dcl-pr) ([a-zA-Z0-9]+)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "entity.name.function.rpgle" }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            { "include": "#variable-types" }
+          ]
+        }
+      ]
+    },
+    "procedure-interface-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.procedure-interface.rpgle",
+          "begin": "^\\s*(dcl-pi)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.rpgle" }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            { "include": "#variable-types" }
+          ]
+        }
+      ]
+    },
+    "prototype-parameters-free": {
+      "patterns": [
+        {
+          "name": "meta.parameter.rpgle",
+          "begin": "^\\s*(@[a-zA-Z0-9_-]+)",
+          "beginCaptures": {
+            "1": { "name": "comment.parameter.rpgle" }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            { "include": "#variable-types" },
+            {
+              "name": "storage.modifier.rpgle",
+              "match": "\\b(const|reference|value)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "standalone-variables-free": {
+      "patterns": [
+        {
+          "name": "meta.variable.standalone.rpgle",
+          "begin": "^\\s*(dcl-s)?\\s*(#[a-zA-Z0-9_-]+)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "variable.other.rpgle" }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            { "include": "#variable-types" },
+            {
+              "name": "storage.modifier.rpgle",
+              "match": "\\b(const|reference|value)\\b"
+            }
+          ]
+        }
+      ]
+    },
+    "constant-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.constant.rpgle",
+          "match": "^\\s*(dcl-c) ([A-Z0-9_]+)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "constant.other.rpgle" }
+          }
+        }
+      ]
+    },
+    "datastructure-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.datastructure.single-line.rpgle",
+          "match": "^\\s*(dcl-ds) ([#a-zA-Z0-9]+).*(like(ds|rec))\\(([#a-zA-Z0-9]+)(:\\s?[\\*a-z]+)?\\).*(;)$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "variable.other.rpgle" },
+            "3": { "name": "storage.modifier.like.rpgle" },
+            "5": { "name": "variable.other.rpgle" },
+            "7": { "name": "punctuation.terminator.expression.rpgle" }
+          }
+        },
+        {
+          "name": "meta.datastructure.rpgle",
+          "begin": "^\\s*(dcl-ds) ([#a-zA-Z0-9]+)\\s*(qualified)?.*(;)$",
+          "beginCaptures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "variable.other.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" },
+            "4": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "end": "^\\s*(end-ds)(;)$",
+          "endCaptures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            {
+              "name": "meta.datastructure.field.rpgle",
+              "begin": "^\\s*([a-zA-Z0-9_-]+)",
+              "beginCaptures": {
+                "1": { "name": "variable.other.rpgle" }
+              },
+              "end": ";",
+              "endCaptures": {
+                "0": { "name": "punctuation.terminator.expression.rpgle" }
+              },
+              "patterns": [
+                { "include": "#variable-types" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "table-definitions-free": {
+      "patterns": [
+        {
+          "name": "meta.table.rpgle",
+          "match": "\\s*(dcl-f) ([a-zA-Z0-9]+).*(nokey)?.*(;)$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "variable.table.rpgle" },
+            "3": { "name": "storage.modifier.rpgle" },
+            "4": { "name": "punctuation.terminator.expression.rpgle" }
+          }
+        }
+      ]
+    },
+    "control-statements-free": {
+      "patterns": [
+        {
+          "name": "meta.control.rpgle",
+          "begin": "\\s*(ctl-opt) ([a-zA-Z0-9]+)",
+          "beginCaptures": {
+            "1": { "name": "storage.type.rpgle" },
+            "2": { "name": "keyword.other.control.rpgle" }
+          },
+          "end": ";$",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            { "include": "#strings" }
+          ]
+        }
+      ]
+    },
+    "end-free-definitions": {
+      "patterns": [
+        {
+          "name": "meta.end-definition.rpgle",
+          "match": "^ *(end-(pi|pr|proc))(;)$",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" },
+            "3": { "name": "punctuation.terminator.expression.rpgle" }
+          }
+        }
+      ]
+    },
+    "comments": {
       "patterns": [
         {
           "name": "comment.line.asterisk.rpgle",
-          "match": "^\s*\*.*$"
+          "match": "(?i)^(\\s*\\*[^i]|\\s*\\*i.*[^;]$|\\s*\\*$)"
         }
       ]
     },
-    "keywords": {
+    "free-format-comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.rpgle",
+          "begin": "//",
+          "end": "$"
+        }
+      ]
+    },
+    "embedded-sql": {
+      "patterns": [
+        {
+          "name": "meta.embedded.sql.rpgle",
+          "begin": "(?i)^\\s*exec sql$",
+          "beginCaptures": {
+            "0": { "name": "support.constant.rpgle" }
+          },
+          "end": ";$",
+          "endCaptures": {
+            "0": { "name": "punctuation.terminator.expression.rpgle" }
+          },
+          "patterns": [
+            {
+              "name": "keyword.control.sql.rpgle",
+              "match": "\\b(?i)(DECLARE|CURSOR|FOR|OPEN|FETCH|INTO|CLOSE|SELECT|FROM|WHERE|INSERT|UPDATE|DELETE|VALUES)\\b"
+            },
+            {
+              "name": "variable.other.rpgle",
+              "match": ":#[^\\s]+"
+            }
+          ]
+        }
+      ]
+    },
+    "compiler-directives": {
+      "patterns": [
+        {
+          "name": "support.constant.rpgle",
+          "match": "(?i)^\\s*(/(include|copy))\\b"
+        }
+      ]
+    },
+    "control-statements": {
       "patterns": [
         {
           "name": "keyword.control.rpgle",
-          "match": "\b(IF|DO|ENDDO|SELECT|WHEN|OTHER|END|FOR|DOW|IFEND|ELSE|ENDIF|CALLP|RETURN|LEAVE|ITER|EXSR|BEGSR|ENDSR)\b"
+          "match": "(?i)\\b(do)(w|u)?\\b"
+        },
+        {
+          "name": "keyword.control.rpgle",
+          "match": "(?i)\\b(if|and|or|when)(eq|ne|gt|lt|ge|le)?\\b"
+        },
+        {
+          "name": "keyword.control.rpgle",
+          "match": "(?i)\\b(for|select|exsr|else|elseif|monitor|on-error|other)\\b"
+        },
+        {
+          "name": "keyword.control.rpgle",
+          "match": "(?i)\\b(end)(sr|if|sl|do|for|mon)\\b"
         }
       ]
     },
-    "numbers": {
+    "built-in-functions": {
       "patterns": [
         {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)[\\%](abs|addr|alloc|bitand|bitnot|bitor|bitxor|char|check(r)?|date|days|dec(h|pos)?|diff|div|editc|editflt|editw|elem|eof|equal|error)\\b"
+        },
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)[\\%](fields|float|found|graph|hours|int(h)?|kds|len|lookup|minutes|months|mseconds|nullind|occur|open|paddr|parms|realloc|rem|replace)\\b"
+        },
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)[\\%](scan|seconds|shtdn|size|sqrt|status|str|subdt|this|time(stamp)?|tlookup|trim(l|r)?|ucs2|uns(h)?|xfoot|xlate|years)\\b"
+        }
+      ]
+    },
+    "opcodes": {
+      "patterns": [
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)\\b(acq|add|adddur|alloc|bit(off|on)|cab|call(b|p)?|cas|cat|chain|check(r)?|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump)\\b"
+        },
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)\\b(eval(r)?|except|exfmt|exsr|extrct|feod|force|goto|in|iter|iterkfld|klist|leave(sr)?|lookup|mhhzo|mhlzo|mlhzo|mllzo|move(a|l)?|mult|mvr)\\b"
+        },
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)\\b(next|not|occur|on|open|or|other|out|parm|plist|post|read(c|e|p|pe)?|realloc|rel|reset|return|rolbk)\\b"
+        },
+        {
+          "name": "keyword.operator.rpgle",
+          "match": "(?i)\\b(scan|set(gt|ll|off|on)|shtdn|sorta|sqrt|sub(dur|st)?|tag|test(b|n|z)?|this|time|unlock|update|write|xfoot|xlate|z-add|z-sub)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.rpgle",
+          "match": "(?i)[*](on|off|entry|all|blank(s)?|zero(s)?|(hi|lo)val)\\b"
+        },
+        {
           "name": "constant.numeric.rpgle",
-          "match": "\b\d+(\.\d+)?\b"
+          "match": "\\b\\d+(\\.\\d+)?\\b"
         }
       ]
     },
     "strings": {
       "patterns": [
         {
-          "name": "string.quoted.double.rpgle",
-          "begin": '"',
-          "end": '"',
+          "name": "string.quoted.single.rpgle",
+          "begin": "'",
+          "end": "'",
           "patterns": [
             {
               "name": "constant.character.escape.rpgle",
-              "match": "\\."
+              "match": "\\\\."
+            },
+            {
+              "name": "constant.character.escape.rpgle",
+              "match": "''"
             }
           ]
+        }
+      ]
+    },
+    "variable-types": {
+      "patterns": [
+        {
+          "name": "storage.type.rpgle",
+          "match": "\\b(bool|pointer|timestamp)\\b"
+        },
+        {
+          "name": "storage.type.rpgle",
+          "match": "\\b(bindec|char|int|packed|unsigned|varchar)\\([0-9:]+\\)",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        },
+        {
+          "name": "storage.type.rpgle",
+          "match": "\\b(date|time)(\\([A-Z0-9]+\\))?",
+          "captures": {
+            "1": { "name": "storage.type.rpgle" }
+          }
+        },
+        {
+          "name": "storage.modifier.like.rpgle",
+          "match": "\\b(like)(ds|rec)?\\(([#a-zA-Z0-9]+)\\)",
+          "captures": {
+            "1": { "name": "storage.modifier.like.rpgle" },
+            "2": { "name": "storage.modifier.like.rpgle" },
+            "3": { "name": "variable.other.rpgle" }
+          }
+        }
+      ]
+    },
+    "statement-terminator": {
+      "patterns": [
+        {
+          "name": "punctuation.terminator.expression.rpgle",
+          "match": ";"
         }
       ]
     }

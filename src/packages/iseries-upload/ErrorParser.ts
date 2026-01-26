@@ -34,7 +34,9 @@ export default class ErrorParser {
             if (["00", "0D"].includes(hex)) {
                 continue;
             } else if (["0C", "15"].includes(hex)) {
-                if (line.trim()) errors.push(line);
+                if (line.trim()) {
+                    errors.push(line);
+                }
                 line = "";
             } else if (hex === "34") {
                 i += 2; // Skip next 2 chars

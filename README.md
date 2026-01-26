@@ -1,71 +1,84 @@
-# sublime-packages-port README
+# iSeries Visual Studio Code Extension README
 
-This is the README for your extension "sublime-packages-port". After writing up a brief description, we recommend including the following sections.
+Support for iSeries source code and utilities to make development easier.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **RPGLE Language Support**: Full syntax highlighting and language recognition for RPGLE files (`.rpgle` extension)
+- **Source Code Upload**: Upload your local RPGLE source code directly to IBM i systems
+- **Automatic Upload on Save**: Optionally upload source code automatically when you save files
+- **Compile Integration**: Automatically compile source code after uploading to IBM i
+- **Error Handling**: View compilation errors with configurable output formats (spoolfile, list, or none)
 
-For example if there is an image subfolder under your extension project workspace:
+## Commands
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- `Upload Iseries Source` - Manually upload the current RPGLE file to IBM i
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- VS Code version 1.108.1 or higher
+- Access to an IBM i system for uploading and compiling source code
+- Network connectivity to your IBM i server
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+### General Settings
+
+- `iseriesUpload.openUploadedCode`: Open a new editor tab with the processed code that's uploaded to the IBM i (default: `false`)
+- `iseriesUpload.uploadOnSave`: Automatically upload source to IBM i on save (default: `false`)
+- `iseriesUpload.compile`: Automatically compile source after upload (default: `false`)
+
+### Connection Settings
+
+- `iseriesUpload.server`: The IBM i server address for upload (default: `""`)
+- `iseriesUpload.library`: The target library for upload (default: `""`)
+- `iseriesUpload.timeout`: Upload timeout in seconds (default: `30`)
+- `iseriesUpload.session`: 6-digit session ID to avoid clashing sessions (default: `""`)
+
+### Error Handling
+
+- `iseriesUpload.errors.outputType`: The output type for compile errors (default: `"spoolfile"`)
+  - Options: `"spoolfile"`, `"list"`, `"none"`
+- `iseriesUpload.severity`: Severity level for compile errors (default: `10`)
+
+## Getting Started
+
+1. Install the extension
+2. Configure your IBM i server settings:
+   - Set `iseriesUpload.server` to your IBM i server address
+   - Set `iseriesUpload.library` to your target library
+3. Open a `.rpgle` file in VS Code
+4. Use the "Upload Iseries Source" command or enable automatic upload on save
+
+## Usage
+
+### Manual Upload
+1. Open a RPGLE file
+2. Open the Command Palette (Ctrl+Shift+P)
+3. Run "Upload Iseries Source"
+
+### Automatic Upload
+1. Set `iseriesUpload.uploadOnSave` to `true` in your settings
+2. Save any RPGLE file to automatically upload it to IBM i
+
+### Compilation
+- Enable `iseriesUpload.compile` to automatically compile after upload
+- Configure error output with `iseriesUpload.errors.outputType`
+- Set compilation error severity level with `iseriesUpload.severity`
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Ensure your IBM i server is accessible and properly configured
+- Session conflicts may occur if multiple users don't use unique session IDs
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Initial release of iSeries Visual Studio Code Extension with:
+- RPGLE language support
+- Basic upload functionality
+- Compilation integration
+- Error handling and reporting

@@ -39,7 +39,9 @@ async function handleUpload(document?: vscode.TextDocument) {
 	}
 
 	const filePath = document?.fileName || await selectFile();
-	if (!filePath) return;
+	if (!filePath) {
+		return;
+	};
 
 	await vscode.window.withProgress({
 		location: vscode.ProgressLocation.Notification,

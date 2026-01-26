@@ -136,14 +136,18 @@ class PreProcessor {
 
     private handleNewRpgTables(line: string): string {
         const match = line.match(new RegExp(`^\\s*dcl-f ([${PreProcessor.NAME}]+)(.*)?;$`));
-        if (!match) return this.handleNewRpgBlocks(line);
+        if (!match) {
+            return this.handleNewRpgBlocks(line);
+        };
 
         let result = `f${match[1].padEnd(10)}`;
         let extra = match[2] || '';
 
         const usageMatch = extra.match(/usage\(([^\)]*)\)/);
         const usage = usageMatch ? usageMatch[1] : '';
-        if (usageMatch) extra = extra.replace(/usage\([^\)]*\)/, '');
+        if (usageMatch) {
+            extra = extra.replace(/usage\([^\)]*\)/, '');
+        }
 
         // Determine file type
         if (usage.includes('*update')) {
@@ -159,7 +163,9 @@ class PreProcessor {
         result += ' e           ';
         result += extra.includes('nokey') ? ' ' : 'k';
 
-        if (extra.includes('nokey')) extra = extra.replace('nokey', '');
+        if (extra.includes('nokey')) {
+            extra = extra.replace('nokey', '');
+        }
         result += ' disk    ' + extra.trim();
 
         return result;
@@ -208,7 +214,9 @@ class PreProcessor {
             this.datastructure = true;
             let definition = 'ds';
             if (match[2]) {
-                if (match[2].includes('like')) this.datastructure = false;
+                if (match[2].includes('like')) {
+                    this.datastructure = false;
+                }
                 definition += ' '.repeat(18) + match[2].trim();
             }
             return this.generateLine('d', match[1], definition);
@@ -301,7 +309,9 @@ class PreProcessor {
 
         for (const { pattern, handler } of typeHandlers) {
             const match = line.match(pattern);
-            if (match) return handler(match);
+            if (match) {
+                return handler(match);
+            }
         }
 
         return line;
@@ -336,7 +346,9 @@ class PreProcessor {
         let line = `${type} ${name.padEnd(14)}`;
 
         if (name.length > 14) {
-            if (this.freeFormat) this.switchMode();
+            if (this.freeFormat) {
+                this.switchMode();
+            }
             this.appendLine(`${"".padStart(5)}${line}...`);
             line = type + " ".repeat(15);
         }

@@ -1,0 +1,146 @@
+{
+  "name": "DDS",
+  "scopeName": "source.dds",
+  "fileTypes": ["pf", "lf", "dspf"],
+  "patterns": [
+    { "include": "#member-title" },
+    { "include": "#main-dds" }
+  ],
+  "repository": {
+    "member-title": {
+      "patterns": [
+        {
+          "name": "comment.line.hash.dds",
+          "match": "^#.*$"
+        }
+      ]
+    },
+    "main-dds": {
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#field-definitions" },
+        { "include": "#reference-fields" },
+        { "include": "#record-format" },
+        { "include": "#key-fields" },
+        { "include": "#logical-link" },
+        { "include": "#definition-line" },
+        { "include": "#strings" }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.dds",
+          "match": "^ {5}\\.\\*.*$"
+        }
+      ]
+    },
+    "field-definitions": {
+      "patterns": [
+        {
+          "name": "meta.field.definition.dds",
+          "match": "^ {5}(A) {12}(.{10}) (.{5})([AP])",
+          "captures": {
+            "1": { "name": "storage.type.dds" },
+            "2": { "name": "entity.name.function.dds" }
+          }
+        }
+      ]
+    },
+    "reference-fields": {
+      "patterns": [
+        {
+          "name": "meta.field.reference.dds",
+          "match": "^ {5}(A) {12}(.{10})(R)",
+          "captures": {
+            "1": { "name": "storage.type.dds" },
+            "2": { "name": "entity.name.function.dds" }
+          }
+        }
+      ]
+    },
+    "record-format": {
+      "patterns": [
+        {
+          "name": "meta.record.format.dds",
+          "match": "^ {5}(A) {10}(R) (.{0,10})",
+          "captures": {
+            "1": { "name": "storage.type.dds" },
+            "2": { "name": "storage.modifier.dds" },
+            "3": { "name": "keyword.control.dds" }
+          }
+        }
+      ]
+    },
+    "key-fields": {
+      "patterns": [
+        {
+          "name": "meta.key.fields.dds",
+          "begin": "^ {5}(A) {10}([KSO] .{0,10})",
+          "beginCaptures": {
+            "1": { "name": "storage.type.dds" },
+            "2": { "name": "constant.language.dds" }
+          },
+          "end": "^ {5}(A)(?! {10}[KSO ])",
+          "endCaptures": {
+            "1": { "name": "storage.type.dds" }
+          },
+          "patterns": [
+            {
+              "name": "meta.key.field.continuation.dds",
+              "match": "^ {5}(A) {10}([KSO ] .{0,10})",
+              "captures": {
+                "1": { "name": "storage.type.dds" },
+                "2": { "name": "constant.language.dds" }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "logical-link": {
+      "patterns": [
+        {
+          "name": "meta.logical.link.dds",
+          "match": " PFILE\\((.{0,10})\\)",
+          "captures": {
+            "1": { "name": "keyword.control.dds" }
+          }
+        }
+      ]
+    },
+    "definition-line": {
+      "patterns": [
+        {
+          "name": "meta.definition.generic.dds",
+          "match": "^ {5}(A)",
+          "captures": {
+            "1": { "name": "storage.type.dds" }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.dds",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.dds",
+              "match": "''"
+            },
+            {
+              "name": "meta.string.continuation.dds",
+              "match": "^ {5}(A)",
+              "captures": {
+                "1": { "name": "storage.type.dds" }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
