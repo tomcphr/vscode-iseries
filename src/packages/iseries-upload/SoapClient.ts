@@ -96,7 +96,6 @@ export default class SoapClient {
     async getSpoolFile(spoolid: string, jobid: string): Promise<string> {
         const params = `spoolid=${encodeURIComponent(spoolid)}&jobid=${encodeURIComponent(jobid)}`;
         const url = `http://${this.baseUrl.split('/')[2]}/programs/getSpoolFile.aspx?${params}`;
-
         const response = await fetchWithTimeout(url, {}, this.timeoutMs);
         return response.text();
     }
