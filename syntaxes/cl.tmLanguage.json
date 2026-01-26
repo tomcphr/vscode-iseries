@@ -36,7 +36,7 @@
     "operator-keywords": {
       "patterns": [
         {
-          "name": "keyword.operator.cl",
+          "name": "keyword.control.clle",
           "match": "(?i)\\b(pgm|endpgm|chgvar|rcvmsg|sndpgmmsg|monmsg|clrpfm|call|rclrsc|parm)\\b"
         }
       ]
@@ -60,7 +60,11 @@
     "constants": {
       "patterns": [
         {
-          "name": "constant.language.cl",
+          "name": "support.type.clle",
+          "match": "(?i)\\*(CHAR|LGL|DEC|INT|PTR|PNTR|DATE|TIME|UINT|FLOAT|ZONED|BIN|PACKED|GRAPH|UCS2|STRING)\\b"
+        },
+        {
+          "name": "constant.language.clle",
           "match": "(?i)\\*([a-z]+)\\b"
         }
       ]
@@ -68,7 +72,11 @@
     "comments": {
       "patterns": [
         {
-          "name": "comment.block.cl",
+          "name": "comment.line.hash.clle",
+          "match": "^#.*$"
+        },
+        {
+          "name": "comment.block.clle",
           "begin": "/\\*",
           "end": "\\*/"
         }
