@@ -445,10 +445,6 @@
         {
           "name": "keyword.control.rpgle",
           "match": "(?i)\\b(end)(sr|if|sl|do|for|mon)\\b"
-           },
-           {
-             "name": "keyword.control.rpgle",
-             "match": "(?i)\\breturn\\b"
         }
       ]
     },
@@ -471,19 +467,19 @@
     "opcodes": {
       "patterns": [
         {
-          "name": "keyword.operator.rpgle",
-          "match": "(?i)\\b(acq|add|adddur|alloc|bit(off|on)|cab|call(b|p)?|cas|cat|chain|check(r)?|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump)\\b"
+          "name": "keyword.control.rpgle",
+          "match": "(?i)\\b(acq|add|adddur|alloc|bit(off|on)|cab|call(b|p)?|cas|cat|chain|check(r)?|clear|close|commit|comp|dealloc|define|delete|div|dsply|dump|leave|return)\\b"
         },
         {
-          "name": "keyword.operator.rpgle",
+          "name": "keyword.control.rpgle",
           "match": "(?i)\\b(eval(r)?|except|exfmt|exsr|extrct|feod|force|goto|in|iter|iterkfld|klist|leave(sr)?|lookup|mhhzo|mhlzo|mlhzo|mllzo|move(a|l)?|mult|mvr)\\b"
         },
         {
-          "name": "keyword.operator.rpgle",
+          "name": "keyword.control.rpgle",
           "match": "(?i)\\b(next|not|occur|on|open|or|other|out|parm|plist|post|read(c|e|p|pe)?|realloc|rel|reset|return|rolbk)\\b"
         },
         {
-          "name": "keyword.operator.rpgle",
+          "name": "keyword.control.rpgle",
           "match": "(?i)\\b(scan|set(gt|ll|off|on)|shtdn|sorta|sqrt|sub(dur|st)?|tag|test(b|n|z)?|this|time|unlock|update|write|xfoot|xlate|z-add|z-sub)\\b"
         }
       ]
