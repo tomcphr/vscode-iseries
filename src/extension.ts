@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const config = vscode.workspace.getConfiguration('iseriesUpload');
 	if (config.get<boolean>('uploadOnSave')) {
 		vscode.workspace.onDidSaveTextDocument((document) => {
-			if (!['rpgle', 'dds', 'clle'].includes(document.languageId)) {
+			if (!['rpgle', 'dds', 'cl', 'prtf', 'dspf'].includes(document.languageId)) {
 				return;
 			}
 			handleUpload(document);

@@ -1,7 +1,7 @@
 {
   "name": "RPGLE",
   "scopeName": "source.rpgle",
-  "fileTypes": ["rpgle", "sqlrpgle", "rpg"],
+  "fileTypes": ["rpgle", "sqlrpgle", "rpg", "asmx", "aspx"],
   "patterns": [
     { "include": "#member-title" },
     { "include": "#subroutines-column" },
@@ -491,7 +491,7 @@
           "match": "(?i)\\*in[0-9]{2}\\b"
         },
         {
-          "name": "variable.other.indicator.rpgle", 
+          "name": "variable.other.indicator.rpgle",
           "match": "(?i)\\*ink[a-z]\\b"
         },
         {

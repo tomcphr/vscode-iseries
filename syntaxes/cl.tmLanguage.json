@@ -1,6 +1,6 @@
 {
-  "name": "CLLE",
-  "scopeName": "source.clle",
+  "name": "CL",
+  "scopeName": "source.cl",
   "fileTypes": ["clle", "clp"],
   "patterns": [
     { "include": "#labels" },
@@ -16,10 +16,10 @@
     "labels": {
       "patterns": [
         {
-          "name": "meta.label.clle",
+          "name": "meta.label.cl",
           "begin": "^\\s*([A-Za-z]+):",
           "beginCaptures": {
-            "1": { "name": "entity.name.function.clle" }
+            "1": { "name": "entity.name.function.cl" }
           },
           "end": "\\s"
         }
@@ -28,7 +28,7 @@
     "control-keywords": {
       "patterns": [
         {
-          "name": "keyword.control.clle",
+          "name": "keyword.control.cl",
           "match": "(?i)\\b(if|then|do|enddo|goto|cond|opnqryf|ovrdbf|ovrprtf|rtvusrprf|chgjob|clof)\\b"
         }
       ]
@@ -36,7 +36,7 @@
     "operator-keywords": {
       "patterns": [
         {
-          "name": "keyword.operator.clle",
+          "name": "keyword.operator.cl",
           "match": "(?i)\\b(pgm|endpgm|chgvar|rcvmsg|sndpgmmsg|monmsg|clrpfm|call|rclrsc|parm)\\b"
         }
       ]
@@ -44,7 +44,7 @@
     "storage-type": {
       "patterns": [
         {
-          "name": "storage.type.clle",
+          "name": "storage.type.cl",
           "match": "(?i)\\b(dcl)\\b"
         }
       ]
@@ -52,7 +52,7 @@
     "variables": {
       "patterns": [
         {
-          "name": "storage.type.clle",
+          "name": "storage.type.cl",
           "match": "(?i)(&[a-z]+)\\b"
         }
       ]
@@ -60,7 +60,7 @@
     "constants": {
       "patterns": [
         {
-          "name": "constant.language.clle",
+          "name": "constant.language.cl",
           "match": "(?i)\\*([a-z]+)\\b"
         }
       ]
@@ -68,7 +68,7 @@
     "comments": {
       "patterns": [
         {
-          "name": "comment.block.clle",
+          "name": "comment.block.cl",
           "begin": "/\\*",
           "end": "\\*/"
         }
@@ -77,12 +77,12 @@
     "strings": {
       "patterns": [
         {
-          "name": "string.quoted.single.clle",
+          "name": "string.quoted.single.cl",
           "begin": "'",
           "end": "'",
           "patterns": [
             {
-              "name": "constant.character.escape.clle",
+              "name": "constant.character.escape.cl",
               "match": "\\\\."
             }
           ]

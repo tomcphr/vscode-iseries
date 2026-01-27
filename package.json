@@ -92,6 +92,26 @@
     },
     "languages": [
       {
+        "id": "prtf",
+        "aliases": [
+          "PRTF",
+          "prtf"
+        ],
+        "extensions": [
+          ".prtf"
+        ]
+      },
+      {
+        "id": "dspf",
+        "aliases": [
+          "DSPF",
+          "dspf"
+        ],
+        "extensions": [
+          ".dspf"
+        ]
+      },
+      {
         "id": "rpgle",
         "aliases": [
           "RPGLE",
@@ -105,12 +125,10 @@
         "configuration": "./syntaxes/rpgle.tmLanguage.json"
       },
       {
-        "id": "clle",
+        "id": "cl",
         "aliases": [
-          "CLLE",
-          "CLP",
-          "clle",
-          "clp"
+          "CL",
+          "cl"
         ],
         "extensions": [
           ".clle",
@@ -125,8 +143,7 @@
         ],
         "extensions": [
           ".pf",
-          ".lf",
-          ".dspf"
+          ".lf"
         ]
       }
     ],
@@ -137,9 +154,9 @@
         "path": "./syntaxes/rpgle.tmLanguage.json"
       },
       {
-        "language": "clle",
-        "scopeName": "source.clle",
-        "path": "./syntaxes/clle.tmLanguage.json"
+        "language": "cl",
+        "scopeName": "source.cl",
+        "path": "./syntaxes/cl.tmLanguage.json"
       },
       {
         "language": "dds",

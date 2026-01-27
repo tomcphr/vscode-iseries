@@ -1,7 +1,7 @@
 {
   "name": "DDS",
   "scopeName": "source.dds",
-  "fileTypes": ["pf", "lf", "dspf"],
+  "fileTypes": ["pf", "lf"],
   "patterns": [
     { "include": "#member-title" },
     { "include": "#main-dds" }
