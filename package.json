@@ -4,7 +4,7 @@
   "displayName": "iSeries Visual Studio Code Extension",
   "description": "Support for iSeries source code and utilities to make development easier.",
   "publisher": "tomcphr",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.108.1"
   },
@@ -25,9 +25,14 @@
       "title": "Iseries Upload Settings",
       "properties": {
         "iseriesUpload.openUploadedCode": {
-          "type": "boolean",
+          "type": "string",
           "description": "Open a new editor tab with the processed code that's uploaded to the IBM i.",
-          "default": false,
+          "default": "On Error",
+          "enum": [
+            "Everytime",
+            "On Error",
+            "Never"
+          ],
           "order": 0
         },
         "iseriesUpload.uploadOnSave": {

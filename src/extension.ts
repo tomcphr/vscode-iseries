@@ -14,7 +14,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const config = vscode.workspace.getConfiguration('iseriesUpload');
 	if (config.get<boolean>('uploadOnSave')) {
-		vscode.workspace.onDidSaveTextDocument((document) => document.languageId === 'rpgle' && handleUpload(document));
+		vscode.workspace.onDidSaveTextDocument((document) => {
+			if (!['rpgle', 'dds', 'clle'].includes(document.languageId)) {
+				return;
+			}
+			handleUpload(document);
+		});
 	}
 }
 
@@ -65,11 +70,10 @@ async function handleUpload(document?: vscode.TextDocument) {
 				return;
 			}
 
-			await compileSource(client, library!, sourcefile, member, ext, content, severity, document, progress);
+			const compiled = await compileSource(client, library!, sourcefile, member, ext, content, severity, document, progress);
 
-			const showProcessed = vscode.workspace.getConfiguration('iseriesUpload')
-				.get<boolean>('openUploadedCode', false);
-			if (showProcessed) {
+			const showProcessed = vscode.workspace.getConfiguration('iseriesUpload').get<string>('openUploadedCode', "On Error");
+			if (showProcessed === 'Everytime' || (showProcessed === 'On Error' && !compiled)) {
 				const document = await vscode.workspace.openTextDocument({ content: lines.join('\n'), language: 'rpgle' });
 				vscode.window.showTextDocument(document);
 			}
@@ -129,12 +133,12 @@ async function compileSource(client: SoapClient, library: string, sourcefile: st
 		output.appendLine(`Compile failed: ${error}`);
 		output.show(true);
 		vscode.window.showErrorMessage(`Compile failed: ${error}`);
-		return;
+		return false;
 	}
 
 	if (/<result>1<\/result>/i.test(body)) {
 		vscode.window.showInformationMessage('Source compiled successfully.');
-		return;
+		return true;
 	}
 
 	if (/<result>0<\/result>/i.test(body)) {
@@ -143,13 +147,14 @@ async function compileSource(client: SoapClient, library: string, sourcefile: st
 		output.show(true);
 		await handleCompileErrors(body, client, severity, doc);
 		vscode.window.showWarningMessage(`Compile of ${member} completed with errors. Check output for details.`);
-		return;
+		return false;
 	}
 
 	output.appendLine('Compile completed with unknown result:');
 	output.appendLine(body);
 	output.show(true);
 	vscode.window.showWarningMessage('Compile completed with unknown result.');
+	return true;
 }
 
 async function handleCompileErrors(body: string, client: SoapClient, severity: number, doc?: vscode.TextDocument) {
