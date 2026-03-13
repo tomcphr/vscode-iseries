@@ -37,7 +37,7 @@
       "patterns": [
         {
           "name": "keyword.control.clle",
-          "match": "(?i)\\b(pgm|endpgm|chgvar|rcvmsg|sndpgmmsg|monmsg|clrpfm|call|rclrsc|parm)\\b"
+          "match": "(?i)\\b(pgm|endpgm|chgvar|cpyf|rcvmsg|sndpgmmsg|monmsg|clrpfm|call|rclrsc|parm)\\b"
         }
       ]
     },
