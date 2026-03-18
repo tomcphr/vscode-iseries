@@ -50,7 +50,6 @@ class PreProcessor {
     private processRpgFile(): string[] {
         for (let line of this.lines) {
             line = line.trimEnd();
-            console.log(`Processing line: ${line}`);
             if (!this.compileTimeArray && line.startsWith('**')) {
                 this.compileTimeArray = true;
             }

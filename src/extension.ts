@@ -112,7 +112,6 @@ async function prepareFile(filePath: string, session: string, progress: any) {
 		title = rawLines[0].substring(1).trim();
 		rawLines = rawLines.slice(1);
 	}
-	console.log(rawLines);
 	const lines = new PreProcessor(rawLines, ext).process();
 
 	return { sourcefile, ext, member, sessionId, content, lines, title };
