@@ -4,10 +4,14 @@ import * as path from 'path';
 import PreProcessor from './packages/iseries-upload/PreProcessor';
 import SoapClient from './packages/iseries-upload/SoapClient';
 import ErrorParser, { CompileError } from './packages/iseries-upload/ErrorParser';
+import * as IseriesRulers from './packages/iseries-rulers/IseriesRulers';
 
 const output = vscode.window.createOutputChannel('Iseries Upload');
 
 export function activate(context: vscode.ExtensionContext) {
+	// Activate iseries-rulers functionality (rulers & tab navigation)
+	IseriesRulers.activate(context);
+
 	context.subscriptions.push(
 		vscode.commands.registerCommand('iseries.upload', () => handleUpload()),
 	);

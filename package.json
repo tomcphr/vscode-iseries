@@ -18,6 +18,26 @@
       {
         "command": "iseries.upload",
         "title": "Upload Iseries Source"
+      },
+      {
+        "command": "iseries.tab",
+        "title": "Iseries Tab (Next Ruler)"
+      },
+      {
+        "command": "iseries.tabBack",
+        "title": "Iseries Tab Back (Previous Ruler)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "iseries.tab",
+        "key": "tab",
+        "when": "editorTextFocus && editorLangId == 'rpgle'"
+      },
+      {
+        "command": "iseries.tabBack",
+        "key": "shift+tab",
+        "when": "editorTextFocus && editorLangId == 'rpgle'"
       }
     ],
     "configuration": {
