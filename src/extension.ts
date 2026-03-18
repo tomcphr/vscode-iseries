@@ -15,7 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const config = vscode.workspace.getConfiguration('iseriesUpload');
 	if (config.get<boolean>('uploadOnSave')) {
 		vscode.workspace.onDidSaveTextDocument((document) => {
-			if (!['rpgle', 'dds', 'cl', 'prtf', 'dspf'].includes(document.languageId)) {
+			if (!['rpgle', 'dds', 'cl', 'prtf', 'dspf', 'cmd', 'bnd'].includes(document.languageId)) {
 				return;
 			}
 			handleUpload(document);
@@ -112,7 +112,6 @@ async function prepareFile(filePath: string, session: string, progress: any) {
 		title = rawLines[0].substring(1).trim();
 		rawLines = rawLines.slice(1);
 	}
-
 	const lines = new PreProcessor(rawLines, ext).process();
 
 	return { sourcefile, ext, member, sessionId, content, lines, title };

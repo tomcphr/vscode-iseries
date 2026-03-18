@@ -4,7 +4,7 @@
   "displayName": "iSeries Visual Studio Code Extension",
   "description": "Support for iSeries source code and utilities to make development easier.",
   "publisher": "tomcphr",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.108.1"
   },
@@ -91,6 +91,26 @@
       }
     },
     "languages": [
+      {
+        "id": "cmd",
+        "aliases": [
+          "CMD",
+          "cmd"
+        ],
+        "extensions": [
+          ".cmd"
+        ]
+      },
+      {
+        "id": "bnd",
+        "aliases": [
+          "BND",
+          "bnd"
+        ],
+        "extensions": [
+          ".bnd"
+        ]
+      },
       {
         "id": "prtf",
         "aliases": [

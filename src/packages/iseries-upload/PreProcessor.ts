@@ -50,7 +50,6 @@ class PreProcessor {
     private processRpgFile(): string[] {
         for (let line of this.lines) {
             line = line.trimEnd();
-
             if (!this.compileTimeArray && line.startsWith('**')) {
                 this.compileTimeArray = true;
             }
@@ -239,7 +238,6 @@ class PreProcessor {
     private handleNewRpgVariables(line: string): string {
         const prefix = this.parameters || this.datastructure ? '' : 'dcl-s';
         const match = line.match(new RegExp(`^\\s*${prefix}\\s+([#@]?[${PreProcessor.NAME}]+)\\s+(.*)?;$`));
-
         if (match) {
             return this.declareVariable(match[1], this.getVariableType(match[2]));
         }
