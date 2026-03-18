@@ -4,7 +4,7 @@
   "displayName": "iSeries Visual Studio Code Extension",
   "description": "Support for iSeries source code and utilities to make development easier.",
   "publisher": "tomcphr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.108.1"
   },
