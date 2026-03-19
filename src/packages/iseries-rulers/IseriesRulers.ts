@@ -30,12 +30,15 @@ export function updateRulers(editor: vscode.TextEditor | undefined): void {
 	const position = editor.selection.active;
 	const line = editor.document.lineAt(position.line).text;
 
+	const isFixed = line.match(/^([chop]|\s*\*[^i]|\s*\*i.*[^;]$|\s*\*$|^d.{17}s|^d.{17}ds|^d\s.*[^;]$|^d\*|^f.{11}f|^f.{10}o|^f.{10}i[ps]|^f\s{30}|^i[^\s]*$|^i\s.*[^;]$)/i);
+
 	// Free format lines end with semicolon
-	if (line.trimEnd().endsWith(';')) {
+	if (!isFixed) {
 		currentRulers = [];
 		applyRulers(editor, []);
 		return;
 	}
+
 
 	// Then check for fixed format spec
 	const match = line.match(/^ {0,5}([cdfhiop])/i);
