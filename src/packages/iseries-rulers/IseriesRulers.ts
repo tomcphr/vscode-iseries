@@ -30,16 +30,22 @@ export function updateRulers(editor: vscode.TextEditor | undefined): void {
 	const position = editor.selection.active;
 	const line = editor.document.lineAt(position.line).text;
 
-	// Match spec type only at true line start (column 0) or traditional RPG position (columns 5-6)
-	const match = line.match(/^([cdfhiop])|^ {5,6}([cdfhiop])/i);
+	// Free format lines end with semicolon
+	if (line.trimEnd().endsWith(';')) {
+		currentRulers = [];
+		applyRulers(editor, []);
+		return;
+	}
+
+	// Then check for fixed format spec
+	const match = line.match(/^ {0,5}([cdfhiop])/i);
 
 	if (match) {
-		// match[1] is column 0 spec, match[2] is traditional position spec
-		const specType = (match[1] || match[2]).toUpperCase();
+		const specType = match[1].toUpperCase();
 		const baseRulers = TYPE_RULERS[specType];
 
 		if (baseRulers) {
-			// Adjust rulers based on leading whitespace
+			// Adjust rulers based on leading whitespace (following Sublime plugin)
 			const leadingSpaces = match[0].length - 1;
 			currentRulers = leadingSpaces > 0
 				? baseRulers.map(r => r + leadingSpaces)
